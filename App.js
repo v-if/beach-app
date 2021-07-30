@@ -1,12 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import SplashScreen from 'react-native-splash-screen'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import {
-  Colors,
-  Map,
-} from './components';
+import { Map } from './components';
 
 const Stack = createStackNavigator();
 
@@ -24,7 +21,18 @@ export default function App() {
           name="Map" 
           component={Map} 
           options={({ navigation, route }) => ({
-            title: '해수욕장 혼잡도',
+            title: '해수욕장 신호등',
+            headerLeft: () => (
+              <View style={{
+                marginLeft: 10,
+                }}
+              >
+                <Image
+                  style={{width: 36, height: 36}}
+                  source={require('./components/images/parasol.png')}
+                />
+              </View>
+            ),
           })}
         />
       </Stack.Navigator>
