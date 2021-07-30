@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "127211185660",
+    "project_id": "beach-8502b",
+    "storage_bucket": "beach-8502b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:127211185660:android:977f03e4a77f7fc4ac3e79",
+        "android_client_info": {
+          "package_name": "com.tkpark.beach"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "127211185660-htg8nkjco7nkacismvs5naahd1m4tq4q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnqq-HYHCASrjRd0phBJ-Wa__Z7lxT6aA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "127211185660-htg8nkjco7nkacismvs5naahd1m4tq4q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
