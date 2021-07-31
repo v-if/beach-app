@@ -1,6 +1,6 @@
 {
   "name": "Beach",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -12,7 +12,7 @@
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-firebase/admob": "^11.5.0",
-    "@react-native-firebase/app": "^12.4.0",
+    "@react-native-firebase/app": "^11.5.0",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.5",
     "geolib": "^3.3.1",

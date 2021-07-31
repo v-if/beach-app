@@ -29,7 +29,7 @@ export default function App() {
               >
                 <Image
                   style={{width: 36, height: 36}}
-                  source={require('./components/images/parasol.png')}
+                  source={require('./components/images/icon.png')}
                 />
               </View>
             ),

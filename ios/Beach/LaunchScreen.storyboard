@@ -17,11 +17,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="rKY-nn-W27">
-                                <rect key="frame" x="123.5" y="269.5" width="128" height="128"/>
+                                <rect key="frame" x="59.5" y="152.5" width="256" height="362"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.98824876549999996" green="0.99219745400000003" blue="0.98823612930000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="rKY-nn-W27" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="ps0-zQ-6ea"/>
                             <constraint firstItem="rKY-nn-W27" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="wDl-Z1-33e"/>
@@ -34,6 +35,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Image" width="128" height="128"/>
+        <image name="Image" width="256" height="362"/>
     </resources>
 </document>

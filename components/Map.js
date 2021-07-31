@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Platform } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import Colors from './Colors';
 import PropTypes from 'prop-types';
@@ -17,6 +17,11 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const _ = require('lodash')
 const storageData = require('./data.json');
+
+const unitId =
+  Platform.OS === 'ios'
+    ? 'ca-app-pub-8932745447223637/2794864041'
+    : 'ca-app-pub-8932745447223637/1265858632';
 
 class BeachMarker extends React.Component {
 
@@ -231,25 +236,6 @@ class Map extends Component {
     this.requestApi()
   }
 
-  /*
-        ca-app-pub-8932745447223637/1265858632
-        <View style={{ width: width, height: 50, backgroundColor: Colors.white, position: 'absolute', bottom: 0, alignItems: 'center', justifyContent: 'center' }}>
-          <BannerAd
-            unitId={TestIds.BANNER}
-            size={BannerAdSize.BANNER}
-            requestOptions={{
-              requestNonPersonalizedAdsOnly: true,
-            }}
-            onAdLoaded={function() {
-              console.log('Advert loaded');
-            }}
-            onAdFailedToLoad={function(error) {
-              console.error('Advert failed to load: ', error);
-            }}
-          />
-        </View>
-  */
-
   render() {
     return (
       <View style={styles.container}>
@@ -270,6 +256,21 @@ class Map extends Component {
             </Marker>
           ))}
         </MapView>
+        <View style={{ width: width, height: 50, backgroundColor: Colors.white, position: 'absolute', bottom: 0, alignItems: 'center', justifyContent: 'center' }}>
+          <BannerAd
+            unitId={unitId}
+            size={BannerAdSize.SMART_BANNER}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+            onAdLoaded={function() {
+              console.log('Advert loaded');
+            }}
+            onAdFailedToLoad={function(error) {
+              console.error('Advert failed to load: ', error);
+            }}
+          />
+        </View>
         {this.state.isPopup == true ? 
         <View style={{ width: width/2, height: 200, backgroundColor: Colors.white, position: 'absolute', top: 200, alignItems: 'center', justifyContent: 'center', borderRadius: 10, opacity: 0.9 }}>
           <Text style={{ fontSize: 16 }}>화면을 확대하시면</Text>
@@ -290,7 +291,7 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
-    //marginBottom: 50,
+    marginBottom: 50,
   },
   marker: {
     flexDirection: 'row',
