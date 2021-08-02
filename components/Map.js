@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Dimensions, Platform } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import Colors from './Colors';
 import PropTypes from 'prop-types';
-import {BannerAd, BannerAdSize, TestIds} from '@react-native-firebase/admob';
+import {BannerAd, BannerAdSize} from '@react-native-firebase/admob';
 
 const { width, height } = Dimensions.get('window');
 
@@ -32,9 +32,9 @@ class BeachMarker extends React.Component {
         style={styles.marker}
       >
         <Text style={styles.markerFont}>{beach.beachName}</Text>
-        <Text style={beach.congestion == 1 ? {color: Colors.green, fontSize: 14} : {color: Colors.black, fontSize: 14}}>●</Text>
-        <Text style={beach.congestion == 2 ? {color: Colors.yellow, fontSize: 14} : {color: Colors.black, fontSize: 14}}>●</Text>
-        <Text style={beach.congestion == 3 ? {color: Colors.red, fontSize: 14} : {color: Colors.black, fontSize: 14}}>●</Text>
+        <Text style={beach.congestion == '1' ? {color: Colors.green, fontSize: 14} : {color: Colors.black, fontSize: 14}}>●</Text>
+        <Text style={beach.congestion == '2' ? {color: Colors.yellow, fontSize: 14} : {color: Colors.black, fontSize: 14}}>●</Text>
+        <Text style={beach.congestion == '3' ? {color: Colors.red, fontSize: 14} : {color: Colors.black, fontSize: 14}}>●</Text>
       </View>
     );
   }
@@ -55,7 +55,7 @@ class BeachCallout extends React.Component {
         <View>
           <Text style={styles.calloutText}>해수욕장명 : {beach.beachName}</Text>
           <Text style={styles.calloutText}>{beach.areaName + ' ' + beach.areaName2}</Text>
-          <Text style={styles.calloutText}>혼잡도 : {beach.congestion == 1 ? '양호, 거리두기(2m)가능' : beach.congestion == 2 ? '방문주의' : '거리두기(2m)불가, 방문자제'}</Text>
+          <Text style={styles.calloutText}>혼잡도 : {beach.congestion == '1' ? '양호, 거리두기(2m)가능' : beach.congestion == '2' ? '방문주의' : '거리두기(2m)불가, 방문자제'}</Text>
           <Text style={styles.calloutText}>개장일[7/1] - 폐장일[8/31]</Text>
           <Text style={styles.calloutText}>Update : {beach.etlDt.substring(0, 4) + '-' + beach.etlDt.substring(4, 6) + '-' + beach.etlDt.substring(6, 8) + ' ' + beach.etlDt.substring(8, 10) + ':' + beach.etlDt.substring(10, 12)}</Text>
         </View>
