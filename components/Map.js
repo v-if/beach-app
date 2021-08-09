@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Dimensions, Platform } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import Colors from './Colors';
+import BottomBannerAd from './BottomBannerAd'
 import PropTypes from 'prop-types';
-import {BannerAd, BannerAdSize} from '@react-native-firebase/admob';
 
 const { width, height } = Dimensions.get('window');
 
@@ -17,11 +17,6 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const _ = require('lodash')
 const storageData = require('./data.json');
-
-const unitId =
-  Platform.OS === 'ios'
-    ? 'ca-app-pub-8932745447223637/2794864041'
-    : 'ca-app-pub-8932745447223637/1265858632';
 
 class BeachMarker extends React.Component {
 
@@ -55,7 +50,7 @@ class BeachCallout extends React.Component {
         <View>
           <Text style={styles.calloutText}>해수욕장명 : {beach.beachName}</Text>
           <Text style={styles.calloutText}>{beach.areaName + ' ' + beach.areaName2}</Text>
-          <Text style={styles.calloutText}>혼잡도 : {beach.congestion == '1' ? '양호, 거리두기(2m)가능' : beach.congestion == '2' ? '방문주의' : '거리두기(2m)불가, 방문자제'}</Text>
+          <Text style={styles.calloutText}>혼잡도({beach.congestion}) : {beach.congestion == '1' ? '양호, 거리두기(2m)가능' : beach.congestion == '2' ? '방문주의' : '거리두기(2m)불가, 방문자제'}</Text>
           <Text style={styles.calloutText}>개장일[7/1] - 폐장일[8/31]</Text>
           <Text style={styles.calloutText}>Update : {beach.etlDt.substring(0, 4) + '-' + beach.etlDt.substring(4, 6) + '-' + beach.etlDt.substring(6, 8) + ' ' + beach.etlDt.substring(8, 10) + ':' + beach.etlDt.substring(10, 12)}</Text>
         </View>
@@ -72,6 +67,8 @@ class Map extends Component {
   constructor(props) {
     super(props);
 
+    this.handler = this.handler.bind(this);
+
     this.state = {
       region: {
         latitude: LATITUDE,
@@ -83,7 +80,15 @@ class Map extends Component {
       mergeData: [],
       zoomLevel: 1,
       isPopup: true,
+      isAdsLoaded: true,
     };
+  }
+
+  handler = (val) => {
+    if(val == 'failed') {
+      console.log('Advert failed to load');
+      this.setState({ isAdsLoaded: false })
+    }
   }
 
   showMarkerFilterZoomGroup(zoomLevel, latitude, longitude) {
@@ -241,7 +246,7 @@ class Map extends Component {
       <View style={styles.container}>
         <MapView 
           provider={this.props.provider}
-          style={styles.map}
+          style={ this.state.isAdsLoaded == true ? styles.mapWithAds : styles.map }
           initialRegion={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}
         >
@@ -256,21 +261,14 @@ class Map extends Component {
             </Marker>
           ))}
         </MapView>
+        {this.state.isAdsLoaded == true ? 
         <View style={{ width: width, height: 50, backgroundColor: Colors.white, position: 'absolute', bottom: 0, alignItems: 'center', justifyContent: 'center' }}>
-          <BannerAd
-            unitId={unitId}
-            size={BannerAdSize.SMART_BANNER}
-            requestOptions={{
-              requestNonPersonalizedAdsOnly: true,
-            }}
-            onAdLoaded={function() {
-              console.log('Advert loaded');
-            }}
-            onAdFailedToLoad={function(error) {
-              console.error('Advert failed to load: ', error);
-            }}
+          <BottomBannerAd
+            handler = {this.handler}
           />
-        </View>
+        </View> : 
+        <View></View>
+        }
         {this.state.isPopup == true ? 
         <View style={{ width: width/2, height: 200, backgroundColor: Colors.white, position: 'absolute', top: 200, alignItems: 'center', justifyContent: 'center', borderRadius: 10, opacity: 0.9 }}>
           <Text style={{ fontSize: 16 }}>화면을 확대하시면</Text>
@@ -289,9 +287,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.white,
   },
-  map: {
+  mapWithAds: {
     ...StyleSheet.absoluteFillObject,
     marginBottom: 50,
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
   },
   marker: {
     flexDirection: 'row',
